@@ -1,0 +1,8 @@
+# Build artifacts
+.aws-sam/
+
+# Knowledge base
+app/index-storage/
+
+tmp.txt
+/events

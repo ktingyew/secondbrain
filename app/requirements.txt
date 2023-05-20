@@ -1,0 +1,7 @@
+llama-index==0.6.9  # read-only, otherwise error inside lambda
+langchain
+nltk
+openai
+requests
+tiktoken
+# unstructured

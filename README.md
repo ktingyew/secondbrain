@@ -4,7 +4,7 @@ Integrated with Telegram.
 
 ## Build index with llama-index
 ```
-
+# Index build script not yet integrated with this code base.
 ```
 
 ## Build app with AWS SAM

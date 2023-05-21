@@ -9,11 +9,17 @@ from query import send_query
 ALLOWED_TELE_USER = os.getenv('ALLOWED_TELE_USER')
 TELE_TOKEN = os.getenv('TELE_TOKEN')
 URL = f"https://api.telegram.org/bot{TELE_TOKEN}/"
-print(f"{ALLOWED_TELE_USER=}")
+# print(f"{ALLOWED_TELE_USER=}")
 
 # def send_message(text, chat_id):
 #     url = URL + "sendMessage?text={}&chat_id={}".format(text, chat_id)
 #     requests.get(url)
+
+
+def telegram_bot_send_long_msg(message, chat_id, msg_id, chunk_len=1000):
+    chunks = [message[i:i + chunk_len] for i in range(0, len(message), chunk_len)]
+    for chunk in chunks:
+        telegram_bot_sendtext(chunk, chat_id, msg_id)
 
 
 def telegram_bot_sendtext(bot_message, chat_id, msg_id):
@@ -42,7 +48,7 @@ def lambda_handler(event, context):
             "statusCode": 200
         }
 
-    print("Message from permitted user.")
+    # print("Message from permitted user.")
     chat_id = body['message']['chat']['id']
     msg_id = str(int(body['message']['message_id']))
     text = body['message']['text']
@@ -51,7 +57,7 @@ def lambda_handler(event, context):
 
     # print(f"{type(llm_response)=}")
 
-    telegram_bot_sendtext(llm_response, chat_id, msg_id)
+    telegram_bot_send_long_msg(llm_response, chat_id, msg_id)
     return {
         # "reply": reply,
         "statusCode": 200
